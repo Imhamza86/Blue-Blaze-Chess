@@ -68,9 +68,24 @@ function initGame() {
     const defeatSound = document.getElementById('defeatSound');
     const backgroundMusic = document.getElementById('backgroundMusic');
     
-    // Initialize Stockfish AI (using local worker)
-    const stockfish = new Worker('stockfish.js');
-    stockfish.addEventListener('message', handleStockfishMessage);
+    let stockfish;
+
+   // In your initGame function, replace the worker initialization with:
+   if (typeof Worker !== 'undefined') {
+       // Create a blob URL for the Stockfish worker
+       const stockfishCode = `
+           importScripts('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.2/stockfish.js');
+           self.postMessage('ready');
+       `;
+       const blob = new Blob([stockfishCode], { type: 'application/javascript' });
+       const blobUrl = URL.createObjectURL(blob);
+       stockfish = new Worker(blobUrl);
+       
+       stockfish.addEventListener('message', handleStockfishMessage);
+   } else {
+       console.error('Web Workers not supported in your browser');
+       aiStatus.textContent = 'AI NOT SUPPORTED';
+   }
     
     // Settings
     let settings = {
