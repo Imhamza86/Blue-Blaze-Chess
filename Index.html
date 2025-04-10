@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Blaze Chess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♞</text></svg>">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <h1>BLUE BLAZE CHESS</h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p>Initializing battle engine...</p>
+        </div>
+    </div>
+
+    <div class="game-container" id="gameContainer">
+        <div class="header">
+            <h1>BLUE BLAZE CHESS</h1>
+            <div class="game-controls">
+                <button id="newGameBtn">NEW GAME</button>
+                <button id="undoBtn">UNDO MOVE</button>
+                <button id="settingsBtn">SETTINGS</button>
+            </div>
+        </div>
+
+        <div class="game-board-container">
+            <div class="move-history" id="moveHistory">
+                <h3>MOVE HISTORY</h3>
+                <div class="move-list" id="moveList"></div>
+            </div>
+
+            <div class="chess-board" id="chessBoard"></div>
+
+            <div class="game-info">
+                <div class="player-info player-white">
+                    <div class="player-avatar"></div>
+                    <div class="player-status">
+                        <h3>PLAYER</h3>
+                        <div class="status-indicator" id="playerStatus">READY</div>
+                    </div>
+                </div>
+
+                <div class="ai-level-selector">
+                    <h3>AI STRENGTH</h3>
+                    <select id="aiLevel">
+                        <option value="1">Beginner</option>
+                        <option value="2" selected>Intermediate</option>
+                        <option value="3">Advanced</option>
+                        <option value="4">Expert</option>
+                    </select>
+                </div>
+
+                <div class="player-info player-black">
+                    <div class="player-avatar"></div>
+                    <div class="player-status">
+                        <h3>AI OPPONENT</h3>
+                        <div class="status-indicator" id="aiStatus">AWAITING</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <audio id="moveSound" preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="captureSound" preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="checkSound" preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-game-show-suspense-waiting-668.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="victorySound" preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="defeatSound" preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-retro-arcade-lose-2027.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="backgroundMusic" loop preload="auto">
+            <source src="https://assets.mixkit.co/music/preview/mixkit-game-show-idea-258.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="modal" id="promotionModal">
+        <div class="modal-content">
+            <h3>PROMOTE YOUR PAWN</h3>
+            <div class="promotion-options">
+                <div class="promotion-option" data-piece="q">QUEEN</div>
+                <div class="promotion-option" data-piece="r">ROOK</div>
+                <div class="promotion-option" data-piece="b">BISHOP</div>
+                <div class="promotion-option" data-piece="n">KNIGHT</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="gameOverModal">
+        <div class="modal-content">
+            <h2 id="gameOutcomeText">VICTORY</h2>
+            <p id="gameOutcomeDescription">You have defeated the AI opponent!</p>
+            <div class="modal-buttons">
+                <button id="playAgainBtn">PLAY AGAIN</button>
+                <button id="mainMenuBtn">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h2>GAME SETTINGS</h2>
+            <div class="setting-option">
+                <label for="soundVolume">SOUND VOLUME</label>
+                <input type="range" id="soundVolume" min="0" max="100" value="70">
+            </div>
+            <div class="setting-option">
+                <label for="musicVolume">MUSIC VOLUME</label>
+                <input type="range" id="musicVolume" min="0" max="100" value="50">
+            </div>
+            <div class="setting-option">
+                <label for="animationSpeed">ANIMATION SPEED</label>
+                <input type="range" id="animationSpeed" min="1" max="5" value="3">
+            </div>
+            <div class="modal-buttons">
+                <button id="saveSettingsBtn">SAVE SETTINGS</button>
+                <button id="cancelSettingsBtn">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+    <script src="script.js"></script>
+</body>
+  </html>
